@@ -1,11 +1,12 @@
-FROM node:18-alpine
+FROM nginx:alpine
 
-WORKDIR /app
+# Remove default nginx web content
+RUN rm -rf /usr/share/nginx/html/*
 
-COPY backend/package*.json ./
-RUN npm install --omit=dev
+# Copy your website files to nginx web folder
+COPY . /usr/share/nginx/html/
 
-COPY backend ./
+# Expose port 80
+EXPOSE 80
 
-EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
