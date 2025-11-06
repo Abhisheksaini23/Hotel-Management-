@@ -1,14 +1,13 @@
-# Dockerfile (place at repo root)
 FROM node:18-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --only=production
+
+RUN npm install --production
 
 COPY . .
 
-ENV PORT=3000
 EXPOSE 3000
 
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
